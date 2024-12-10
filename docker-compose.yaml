@@ -1,0 +1,17 @@
+version: '3'
+services:
+    nginx:
+        image: nginx:1.25.4-bookworm
+        ports:
+            - "880:80"
+            - "448:443"
+        volumes:
+            - ./data/hosts:/etc/nginx/conf.d
+            - ./data/www:/var/www
+            - ./data/logs/nginx:/var/log/nginx
+        links:
+            - php
+    php:
+        build: ./data/images/php
+        volumes:
+            - ./data/www:/var/www
